@@ -16,7 +16,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('spendings', SpendingController::class)
+Route::resource('spending', SpendingController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 
