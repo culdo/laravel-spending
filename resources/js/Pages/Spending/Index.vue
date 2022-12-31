@@ -6,7 +6,7 @@ import { useForm, Head } from '@inertiajs/inertia-vue3';
 import TextInput from "@/Components/TextInput.vue";
 
 const form = useForm({
-    date: null,
+    date: new Date().toISOString().slice(0,10),
     name: null,
     kind: null,
     image: null,
