@@ -17,7 +17,7 @@ use Inertia\Inertia;
 |
 */
 Route::resource('spending', SpendingController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {

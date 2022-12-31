@@ -1,9 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Spending from "@/Components/Spending.vue";
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm, Head } from '@inertiajs/inertia-vue3';
 import TextInput from "@/Components/TextInput.vue";
+
+defineProps(['spending']);
 
 const form = useForm({
     date: new Date().toISOString().slice(0,10),
@@ -24,7 +27,11 @@ const form = useForm({
 
                 <div class="flex items-center justify-center">
                     📆 <TextInput v-model="form.date" type="date" />
+                    <InputError class="mt-2" :message="form.errors.date" />
+
                     <TextInput class="ml-2" list="kind" placeholder="蝦款..." v-model="form.kind" />
+                    <InputError class="mt-2" :message="form.errors.kind" />
+
                     <datalist id="kind">
                         <option>早午餐</option>
                         <option>晚餐</option>
@@ -43,10 +50,18 @@ const form = useForm({
 
                 <div class="flex items-center justify-center mt-4">
                     <PrimaryButton >🔍 搜尋</PrimaryButton>
-                    <PrimaryButton class="ml-2" @click="form.post(route('spends.store'), { onSuccess: () => form.reset() })">💸 新增花費</PrimaryButton>
+                    <PrimaryButton class="ml-2" @click="form.post(route('spending.store'), { onSuccess: () => form.reset() })">💸 新增花費</PrimaryButton>
                     <PrimaryButton class="ml-2" >🎲 要吃啥</PrimaryButton>
                 </div>
             </form>
+
+            <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
+                <Spending
+                    v-for="item in spending"
+                    :key="item.id"
+                    :spending-item="item"
+                />
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>

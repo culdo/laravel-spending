@@ -12,8 +12,14 @@ class Spending extends Model
     protected $fillable = [
         'date',
         'name',
+        'image',
         'kind',
         'cost',
         'info',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

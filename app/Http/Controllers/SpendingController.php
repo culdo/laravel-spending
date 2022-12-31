@@ -16,7 +16,7 @@ class SpendingController extends Controller
     public function index()
     {
         return Inertia::render('Spending/Index', [
-            //
+            'spending' => Spending::with('user:id,name')->latest()->get(),
         ]);
     }
 
@@ -47,7 +47,7 @@ class SpendingController extends Controller
             'info' => 'required|string|max:255',
         ]);
 
-        $request->user()->chirps()->create($validated);
+        $request->user()->spending()->create($validated);
 
         return redirect(route('spending.index'));
     }
