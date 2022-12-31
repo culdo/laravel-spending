@@ -15,7 +15,7 @@ class SpendingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Chirps/Index', [
+        return Inertia::render('Spending/Index', [
             //
         ]);
     }
