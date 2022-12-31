@@ -18,9 +18,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->dateTime('date');
             $table->string("name");
+            $table->string('image')->default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWTqw904jpS-ZP6ID9-Z9jSH9vQg6IdIarlQ&usqp=CAU");
             $table->string("kind");
             $table->integer("cost")->unsigned();
-            $table->string("info");
+            $table->string("info")->nullable();
             $table->timestamps();
         });
     }
