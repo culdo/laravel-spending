@@ -26,10 +26,10 @@ const form = useForm({
             <form @submit.prevent>
 
                 <div class="flex items-center justify-center">
-                    📆 <TextInput v-model="form.date" type="date" />
+                    📆 <TextInput name="date" v-model="form.date" type="date" />
                     <InputError class="mt-2" :message="form.errors.date" />
 
-                    <TextInput class="ml-2" list="kind" placeholder="蝦款..." v-model="form.kind" />
+                    <TextInput name="kind" class="ml-2" list="kind" placeholder="蝦款..." v-model="form.kind" />
                     <InputError class="mt-2" :message="form.errors.kind" />
 
                     <datalist id="kind">
@@ -39,13 +39,14 @@ const form = useForm({
                 </div>
 
                 <div class="flex items-center justify-center mt-2">
-                    🛒 <TextInput type="text" placeholder="吃啥買啥...🌭🥪🍺" v-model="form.name"/>
-                    <TextInput class="ml-2" type="text" placeholder="備註..." v-model="form.info"/>📝
+                    🛒 <TextInput name="name" type="text" placeholder="吃啥買啥...🌭🥪🍺" v-model="form.name"/>
+                    <TextInput name="info" class="ml-2" type="text" placeholder="備註..." v-model="form.info"/>📝
                 </div>
 
                 <div class="flex items-center justify-center mt-2">
-                    🤳 <TextInput type="text" placeholder="沒圖沒真相..." v-model="form.image"/>
-                    <TextInput class="ml-2" type="text" placeholder="噴多少錢..." v-model="form.cost"/>💰
+                    🤳 <TextInput name="image" type="text" placeholder="沒圖沒真相..." v-model="form.image"/>
+                    <InputError class="mt-2" :message="form.errors.image" />
+                    <TextInput name="cost" class="ml-2" type="text" placeholder="噴多少錢..." v-model="form.cost"/>💰
                 </div>
 
                 <div class="flex items-center justify-center mt-4">

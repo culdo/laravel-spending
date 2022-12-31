@@ -5,10 +5,10 @@ defineProps(['spendingItem']);
 </script>
 
 <template>
-    <div v-bind:id="spendingItem.id" class='card'>
-        <div class='container'>
+    <div v-bind:id="spendingItem.id">
+        <div class='relative'>
             <div>
-                <span style='color:red; border: 2px red solid;margin-right:5px;'><b>新加入</b></span>
+                <span class="text-red-400 border-solid border-red-700 border-2 mr-5"><b>新加入</b></span>
                 <a v-bind:id="spendingItem.id"> {{spendingItem.id}} </a>
                 <Link class='btn-x' :href="route('spending.destroy', spendingItem.id)" method="delete" as="button">X</Link>
             </div>

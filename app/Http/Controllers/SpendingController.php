@@ -42,12 +42,12 @@ class SpendingController extends Controller
             'date' => 'required|date',
             'name' => 'required|string|max:255',
             'kind' => 'required|string|max:255',
-            'image' => 'required|url',
+            'image' => 'url|nullable',
             'cost' => 'required|integer',
             'info' => 'required|string|max:255',
         ]);
 
-        $request->user()->spending()->create($validated);
+        $request->user()->spending()->create(array_filter($validated));
 
         return redirect(route('spending.index'));
     }
