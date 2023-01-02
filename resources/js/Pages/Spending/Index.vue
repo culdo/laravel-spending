@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm, Head } from '@inertiajs/inertia-vue3';
 import TextInput from "@/Components/TextInput.vue";
 
-defineProps(['spending']);
+defineProps(['spending', 'createdId']);
 
 const form = useForm({
     date: new Date().toISOString().slice(0,10),
@@ -24,7 +24,7 @@ const form = useForm({
 
     <AuthenticatedLayout>
         <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-            <form @submit.prevent="form.post(route('spending.store'), { onSuccess: () => {if(form.opType=='create'){form.reset()}} })">
+            <form @submit.prevent="form.post(route('spending.store'), { onSuccess: () => {if(form.opType==='create'){form.reset()}} })">
 
                 <div class="flex items-center justify-center">
                     📆 <TextInput name="date" v-model="form.date" type="date" />
@@ -62,6 +62,7 @@ const form = useForm({
                     v-for="item in spending"
                     :key="item.id"
                     :spending-item="item"
+                    :created-id="createdId"
                 />
             </div>
         </div>

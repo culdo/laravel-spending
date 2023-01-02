@@ -50,8 +50,11 @@ class SpendingController extends Controller
             ]);
             $validated = array_filter($validated);
 
-            $request->user()->spending()->create($validated);
-            return redirect(route('spending.index'));
+            $createdId = $request->user()->spending()->create($validated)->id;
+            return Inertia::render('Spending/Index', [
+                'spending' => Spending::with('user:id,name')->where("user_id", auth()->id())->latest()->get(),
+                'createdId' => $createdId,
+            ]);
         }elseif ($request->input("opType") == "search"){
             $listing = $this->searchProcess($request);
 
