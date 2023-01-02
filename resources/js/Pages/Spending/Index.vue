@@ -15,6 +15,7 @@ const form = useForm({
     image: null,
     cost: null,
     info: null,
+    opType: null,
 });
 </script>
 
@@ -50,9 +51,9 @@ const form = useForm({
                 </div>
 
                 <div class="flex items-center justify-center mt-4">
-                    <PrimaryButton >🔍 搜尋</PrimaryButton>
-                    <PrimaryButton class="ml-2" @click="form.post(route('spending.store'), { onSuccess: () => form.reset() })">💸 新增花費</PrimaryButton>
-                    <PrimaryButton class="ml-2" >🎲 要吃啥</PrimaryButton>
+                    <PrimaryButton @click="form.opType='search';form.post(route('spending.store'))">🔍 搜尋</PrimaryButton>
+                    <PrimaryButton class="ml-2" @click="form.opType='create';form.post(route('spending.store'), { onSuccess: () => form.reset() })">💸 新增花費</PrimaryButton>
+                    <PrimaryButton class="ml-2" @click="form.opType='whatToEat';form.post(route('spending.store'))" >🎲 要吃啥</PrimaryButton>
                 </div>
             </form>
 

@@ -38,18 +38,56 @@ class SpendingController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        if($request->input("opType") == "create") {
+            $validated = $request->validate([
+                'date' => 'required|date',
+                'name' => 'required|string|max:255',
+                'kind' => 'required|string|max:255',
+                'image' => 'url|nullable',
+                'cost' => 'required|integer',
+                'info' => 'required|string|max:255',
+            ]);
+            $validated = array_filter($validated);
+
+            $request->user()->spending()->create($validated);
+            return redirect(route('spending.index'));
+        }elseif ($request->input("opType") == "search"){
+            $listing = $this->searchProcess($request);
+
+            return Inertia::render('Spending/Index', [
+                'spending' =>$listing->latest()->get(),
+            ]);
+        }elseif ($request->input("opType") == "whatToEat") {
+            $listing = $this->searchProcess($request);
+
+            return Inertia::render('Spending/Index', [
+                'spending' => $listing->inRandomOrder()->take(1)->get(),
+            ]);
+        }else{
+            return redirect(route('spending.index'));
+        }
+
+
+    }
+
+    private function searchProcess(Request $request) {
         $validated = $request->validate([
-            'date' => 'required|date',
-            'name' => 'required|string|max:255',
-            'kind' => 'required|string|max:255',
+            'date' => 'date|nullable',
+            'name' => 'string|max:255|nullable',
+            'kind' => 'string|max:255|nullable',
             'image' => 'url|nullable',
-            'cost' => 'required|integer',
-            'info' => 'required|string|max:255',
+            'cost' => 'integer|nullable',
+            'info' => 'string|max:255|nullable',
         ]);
+        $validated = array_filter($validated);
+        $listing = Spending::with('user:id,name')->where("user_id", auth()->id());
+        foreach ($validated as $key => $value) {
+            $listing->where($key, "like", "%".$value."%");
+        }
 
-        $request->user()->spending()->create(array_filter($validated));
-
-        return redirect(route('spending.index'));
+        return $listing;
     }
 
     /**
