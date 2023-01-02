@@ -24,7 +24,7 @@ const form = useForm({
 
     <AuthenticatedLayout>
         <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-            <form @submit.prevent>
+            <form @submit.prevent="form.post(route('spending.store'), { onSuccess: () => {if(form.opType=='create'){form.reset()}} })">
 
                 <div class="flex items-center justify-center">
                     📆 <TextInput name="date" v-model="form.date" type="date" />
@@ -51,9 +51,9 @@ const form = useForm({
                 </div>
 
                 <div class="flex items-center justify-center mt-4">
-                    <PrimaryButton @click="form.opType='search';form.post(route('spending.store'))">🔍 搜尋</PrimaryButton>
-                    <PrimaryButton class="ml-2" @click="form.opType='create';form.post(route('spending.store'), { onSuccess: () => form.reset() })">💸 新增花費</PrimaryButton>
-                    <PrimaryButton class="ml-2" @click="form.opType='whatToEat';form.post(route('spending.store'))" >🎲 要吃啥</PrimaryButton>
+                    <PrimaryButton @click="form.opType='search'">🔍 搜尋</PrimaryButton>
+                    <PrimaryButton class="ml-2" @click="form.opType='create'">💸 新增花費</PrimaryButton>
+                    <PrimaryButton class="ml-2" @click="form.opType='whatToEat'" >🎲 要吃啥</PrimaryButton>
                 </div>
             </form>
 

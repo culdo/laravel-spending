@@ -39,7 +39,6 @@ class SpendingController extends Controller
     public function store(Request $request)
     {
 
-
         if($request->input("opType") == "create") {
             $validated = $request->validate([
                 'date' => 'required|date',
