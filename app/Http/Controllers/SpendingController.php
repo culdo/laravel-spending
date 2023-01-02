@@ -94,6 +94,10 @@ class SpendingController extends Controller
      */
     public function destroy(Spending $spending)
     {
-        //
+        $this->authorize('delete', $spending);
+
+        $spending->delete();
+
+        return redirect(route('spending.index'));
     }
 }
