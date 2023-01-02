@@ -16,7 +16,7 @@ class SpendingController extends Controller
     public function index()
     {
         return Inertia::render('Spending/Index', [
-            'spending' => Spending::with('user:id,name')->latest()->get(),
+            'spending' => Spending::with('user:id,name')->where("user_id", auth()->id())->latest()->get(),
         ]);
     }
 
